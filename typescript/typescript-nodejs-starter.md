@@ -14,7 +14,7 @@ Dev Dependencies:
 
 ```json
 "scripts": {
-  "start:dev: "nodemon",
+  "start:dev": "nodemon",
   "start": "npm run build && node dist/main.js",
   "clean": "rimraf ./dist",
   "build": "npm run clean && tsc",
