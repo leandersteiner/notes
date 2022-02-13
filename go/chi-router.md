@@ -55,8 +55,8 @@ Here we create a new `chi.Mux` instance and register two routes providing a patt
 
 ```go
 r.Get("/{id}", func(w http.ResponseWriter, r *http.Request) {
-		idParam := chi.URLParam(r, "id")
-		w.Write([]byte("Welcome " + idParam))
+	idParam := chi.URLParam(r, "id")
+	w.Write([]byte("Welcome " + idParam))
 })
 ```
 
