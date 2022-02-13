@@ -59,7 +59,7 @@ Make sure to set the `type` in your `package.json` to `module`.
   "singleQuote": true,
   "tabWidth": 2,
   "arrowParens": "avoid",
-  "bracketSpacing: true
+  "bracketSpacing": true
 }
 ```
 
