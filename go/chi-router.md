@@ -149,4 +149,4 @@ Output:
 4.869µs
 ```
 
-Middlewares are just functions that take a `http.Handler` instance and return one. We have to call `next.ServeHTTP(http.ResponseWriter, *http.Request)` otherwise our middleware will be the only thing that runs when we get a matching request.
+Middlewares are just functions that take a `http.Handler` instance and return one. We have to call `next.ServeHTTP(http.ResponseWriter, *http.Request)` to execute the actual handler that should handle the request. Otherwise our middleware will be the only thing that runs when we get a matching request.
