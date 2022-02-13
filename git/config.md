@@ -26,5 +26,5 @@ $ git init
 $ git remote add origin git@github.com:leandersteiner/notes.git
 $ git add .
 $ git commit -m "First Commit"
-$ git push -u origin master
+$ git push -u origin main
 ```
