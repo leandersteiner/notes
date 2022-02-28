@@ -18,6 +18,87 @@ Output:
 Hello World
 ```
 
+## Basic Data Types
+
+- bool
+- int8, int16, int32, int64, int
+- uint8, uint16, uint32, uint64, uint
+- float32, float64
+- complex64, complex128
+- byte
+- rune
+- string
+
+Stick to using int/uint until you are certain you need a more specific type like int32.
+
+## Variable declaration and initialization
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var a int
+	var b = 5
+	c := 10
+	const d = 20
+
+	fmt.Println(a, b, c, d)
+	//d = 5 -> cannot assign to d (declared const)
+}
+```
+
+Output:
+
+```
+0 5 10 20
+```
+
+## Zero Values
+
+Every uninitialized variable will be set to its types zero value.
+
+- Boolean -> false
+- Integer -> 0
+- Float -> 0
+- Complex -> 0i
+- String -> ""
+- Ponter -> nil
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var b bool
+	var i int
+	var f float32
+	var c complex64
+	var s string
+	var p *int
+
+	fmt.Printf("b: %T(%v)\n", b, b)
+	fmt.Printf("i: %T(%v)\n", i, i)
+	fmt.Printf("f: %T(%v)\n", f, f)
+	fmt.Printf("c: %T(%v)\n", c, c)
+	fmt.Printf("s: %T(%v)\n", s, s)
+	fmt.Printf("p: %T(%v)\n", p, p)
+}
+```
+
+Output:
+
+```
+b: bool(false)
+i: int(0)
+f: float32(0)
+c: complex64((0+0i))
+s: string()
+p: *int(<nil>)
+```
+
 ## Command Line Arguments
 
 ### Providing command line arguments
