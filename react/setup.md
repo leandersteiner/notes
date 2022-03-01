@@ -85,3 +85,5 @@ export const Greet = (props) => <h1>Hello, {props.name}!</h1>;
 
 We can now start the development server by running `npm start` which is defined in the `package.json`.
 This development server automatically reloads any changes made inside our project folder which is very convenient while developing our application. The development server should never be used in production!
+
+Use `create-react-app project-name --template typescript` to generate a react application based on typescript.
