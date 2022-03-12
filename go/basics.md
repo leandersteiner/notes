@@ -39,13 +39,20 @@ package main
 import "fmt"
 
 func main() {
-	var a int
-	var b = 5
-	c := 10
-	const d = 20
+	var a int // declaration
+	var b = 5 // initialization
+	c := 10 // short form only possible with initialization
+	const d = 20 // constant
 
 	fmt.Println(a, b, c, d)
 	//d = 5 -> cannot assign to d (declared const)
+
+	// Grouping variables - Effective Go
+	var (
+		home	 = os.Getenv("HOME")
+		user	 = os.Getenv("USER")
+		gopath = os.Getenv("GOPATH")
+	)
 }
 ```
 
@@ -54,6 +61,34 @@ Output:
 ```
 0 5 10 20
 ```
+
+## Numerical constants with iota
+
+```go
+const (
+	Nort = iota // 0
+	East        // 1 iota can be omitted for the following declarations
+	South       // 2
+	West        // 3
+)
+
+// Example from Effective Go
+type ByteSize float64
+
+const (
+    _           = iota // ignore first value by assigning to blank identifier
+    KB ByteSize = 1 << (10 * iota)
+    MB
+    GB
+    TB
+    PB
+    EB
+    ZB
+    YB
+)
+```
+
+[Effective Go](https://go.dev/doc/effective_go#constants)
 
 ## Zero Values
 
@@ -177,3 +212,36 @@ $ go run command-line-numbers.go 1 2
 ```
 
 We can see that if we add the two arg variables together we see `12` as the output. This is because of string concatenation that happens when we add two values of type string.
+
+## Functions
+
+Functions are declared using the `func` keyword followed by the function name with parenthesis containing any parameters. After the parenthesis follow the return types. This is one of the unique features of go, multiple returns from functions.
+
+```go
+func findUser(users []user, name string) (user, error) {
+	for _, u := range users {
+		if u.name == name {
+			return u, nil
+		}
+		return user{}, ErrUserNotFound
+	}
+}
+```
+
+### Variadic Functions
+
+By prefixing a parameter with `...` we can make a parameter variadic. Inside the function it will be available as a slice. It has to be the last argument of the function.
+
+```go
+func wrapMiddleware(handler Handler, mw ...Middleware) Handler {
+	for i := len(mw) - 1; i >= 0; i-- {
+		h := mw[i]
+		if h != nil {
+			handler = h(handler)
+		}
+	}
+	return handler
+}
+```
+
+Here we wrap middlewares around a handler.
