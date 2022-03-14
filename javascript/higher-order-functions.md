@@ -1,4 +1,4 @@
-# Higher -order Functions
+# Higher-order Functions
 
 Hgher-order functions are functions that either receive a function as an argument or return a function.
 Returning functions will result in function closure.
@@ -9,7 +9,7 @@ Returning functions will result in function closure.
 
 ```js
 const higherOrder = (cb) => {
-  cb("test");
+  cb('test');
 };
 
 higherOrder(console.log);
@@ -32,11 +32,11 @@ const higherOrder = (prefix) => {
   };
 };
 
-const infoLog = higherOrder("INFO:");
-infoLog("Message to log here");
+const infoLog = higherOrder('INFO:');
+infoLog('Message to log here');
 
-const errorLog = higherOrder("ERROR:");
-errorLog("Message to log here");
+const errorLog = higherOrder('ERROR:');
+errorLog('Message to log here');
 ```
 
 Output:
