@@ -27,3 +27,43 @@
     - Trainer
         - Dashboard für angemeldete trainierende
         - Benachrichtung bei nicht ausführen
+
+
+## Wireframe
+
+- Landing Page
+- Workoutplan
+- Durchführung von Workout
+- Taineransicht
+- Datenvisualisierung
+- Login
+
+## Datenbankmodell
+
+- User
+  - id
+  - name
+  - email
+  - password
+- Role
+  - id
+  - name
+- Exercise
+  - id
+  - name
+  - type
+- Set
+  - id
+  - user_id
+  - exercise_id
+  - weight
+  - reps
+- Workout
+  - id
+  - user_id
+- Plan
+  - id
+  - user_id
+- Group
+  - is
+  - trainer_id
