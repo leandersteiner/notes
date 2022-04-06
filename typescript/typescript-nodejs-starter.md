@@ -69,7 +69,7 @@ Make sure to set the `type` in your `package.json` to `module`.
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript/eslint"],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
