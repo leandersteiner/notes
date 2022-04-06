@@ -8,7 +8,7 @@ Dev Dependencies:
 - `nodemon`
 - `eslint`
 - `@typescript-eslint/eslint-plugin`
-- `@typescript-esling/parser`
+- `@typescript-eslint/parser`
 
 `package.json` Scripts:
 
