@@ -85,3 +85,30 @@ Make sure to set the `type` in your `package.json` to `module`.
 node_modules
 dist
 ```
+
+```
+npm init -y
+npm install -D typescript
+npm install -D eslint
+npx tsc --init
+npx eslint --init (problems, esm, none, yes, node, json, yes)
+
+```
+
+eslintrc.json
+```json
+{
+  "compilerOptions": {
+    "target": "ES2021",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "ES2020",                                /* Specify what module code is generated. */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    "moduleResolution": "node"
+  },
+  "ts-node": {
+    "esm": true
+  }
+}
+```

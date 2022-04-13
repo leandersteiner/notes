@@ -1,5 +1,5 @@
 # RESTful Web Services
 
-## Spcification
+## Specification
 
 - OpenAPI/Swagger
