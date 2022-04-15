@@ -95,20 +95,47 @@ npx eslint --init (problems, esm, none, yes, node, json, yes)
 
 ```
 
-eslintrc.json
+tsconfig.json
 ```json
 {
   "compilerOptions": {
-    "target": "ES2021",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "module": "ES2020",                                /* Specify what module code is generated. */
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    "target": "ES2021",
+    "module": "ES2020",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
     "moduleResolution": "node"
   },
   "ts-node": {
     "esm": true
+  }
+}
+```
+
+package.json
+
+```json
+{
+  "name": "node-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --watch '**/*.ts' --exec 'ts-node' src/index.ts",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "eslint": "^8.13.0",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
   }
 }
 ```
