@@ -22,7 +22,7 @@ $ ssh git@github.com
 $ git config --global user.name "Leander Steiner"
 $ git config --global user.email leandersteiner@yahoo.de
 $ git config --global core.editor vim
-$ gir config --global init.defaultbranch main
+$ git config --global init.defaultbranch main
 ```
 
 ## Create a new Repository
