@@ -61,6 +61,52 @@ export const Effect = () => {
 };
 ```
 
+```js
+import { Autocomplete, TextField } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+interface Exercise {
+  id: number;
+  created_at: Date;
+  updated_at: Date;
+  user_id: number;
+  name: string;
+  description: string;
+  video: string;
+}
+
+export const ExerciseSelector = () => {
+  const [exercises, setExercises] = useState<Exercise[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      const { data, status } = await axios.get<Exercise[]>(
+        "http://localhost/api/v1/exercises"
+      );
+      if (status === 200 && mounted) {
+        setExercises(data);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  return (
+    <Autocomplete
+      disablePortal
+      id="exercise-selector"
+      options={exercises.map((option) => option.name)}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Exercise" />}
+      onChange={(_, newValue) => console.log(newValue)}
+    />
+  );
+};
+```
+
 The `useEffect` hook is often used to load state by sending an http request to another service and setting the inner state to the received data.
 
 ## `useContext`
