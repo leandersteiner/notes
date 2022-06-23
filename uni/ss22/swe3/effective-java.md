@@ -28,8 +28,8 @@ new SAMType() {
   }
 }
 
-(params) -> { 
-  // method body 
+(params) -> {
+  // method body
 }
 ```
 
@@ -43,7 +43,7 @@ x -> x * 2
 
 ```java
 button.setOnAction(new EventHandler<ActionEvent>() {
-  @Override 
+  @Override
   public void handle(ActionEvent e) {
     label.setText("Accepted");
   }
@@ -60,19 +60,6 @@ public static Comparator<String> compareByLength() {
 }
 
 Collections.sort(names, compareByLenght());
-```
-
-```java
-final List<String> names = ...
-names.forEach(name -> System.out.println(name));
-names.forEach(System.out::println)
-```
-
-```
-Static method | String::valueOf | obj -> String.valueOf(obj)
-Instance method of a type | String::compareTo | (str1, str2) -> str1.compareTo(str2)
-Instance method of an object | person::getName | () -> person.getName()
-Constructor | ArrayList::new | () -> new ArrayList<>()
 ```
 
 ```java
@@ -210,6 +197,7 @@ Runnable r = () -> {
   System.out.println(port);
   port = 80; // must be final or effectively final
 }
+port = 80;
 ```
 
 ```java
@@ -278,7 +266,7 @@ class Inventory {
         }
       }
     }
-    
+
     return names.size();
   }
 }
@@ -297,18 +285,6 @@ class Inventory {
 ```
 
 ```java
-class Inventory {
-  List<Supply> supplies = new ArrayList<>();
-
-  long countDifferentKinds() {
-    return supplies.stream()
-                   .filter(supply -> !supply.isContaminated())
-                   .map(supply -> supply.getName())
-                   .distinct()
-                   .count();
-  }
-}
-
 class Inventory {
   List<Supply> supplies = new ArrayList<>();
 
@@ -422,4 +398,100 @@ CmdHandler.getInstance().doCmd(
     () -> {}  // Undo
   )
 );
+```
+
+```java
+final List<String> names = ...
+names.forEach(name -> System.out.println(name));
+names.forEach(System.out::println)
+```
+
+```
+Static method | String::valueOf | obj -> String.valueOf(obj)
+Instance method of a type | String::compareTo | (str1, str2) -> str1.compareTo(str2)
+Instance method of an object | person::getName | () -> person.getName()
+Constructor | ArrayList::new | () -> new ArrayList<>()
+```
+
+```java
+EventDispatcher.INSTANCE.registerSubscriber(
+  ADD_BIRDS, 
+  new Callback<>(this::addBirdCardsToCurrentPlayer)
+);
+EventDispatcher.INSTANCE.registerSubscriber(
+  PREPARE_GAIN_FOOD,
+  new Callback<>(this::prepareGainFoodOption)
+);
+EventDispatcher.INSTANCE.registerSubscriber(
+  PREPARE_LAY_EGGS,
+  new Callback<>(this::prepareLayEggsOption)
+);
+EventDispatcher.INSTANCE.registerSubscriber(
+  PREPARE_DRAW_BIRD,
+  new Callback<>(this::prepareDrawBirdOption)
+);
+EventDispatcher.INSTANCE.registerSubscriber(
+  PLAY_BIRD,
+  new Callback<>(this::playBirdCard));
+
+private void addFoodToCurrentPlayer(AddFoodToCurrentPlayer addFood) {
+  addFood.getFoodTokens().forEach(currentPlayer::addFoodToken);
+  EventDispatcher.INSTANCE.dispatch(Event.REFRESH_FOODSTOCK, currentPlayer.getFoodStock());
+}
+
+private boolean playerHadStartSelection() {
+  boolean playerHasFood =
+    currentPlayer.getFoodStock().values().stream().reduce(0, Integer::sum) > 0;
+  boolean playerHasCards = currentPlayer.getPlayerHand().size() > 0;
+  return playerHasCards || playerHasFood;
+}
+
+
+private void addGoalPoints(EvaluateGoals evaluateGoals) {
+  if (evaluateGoals.roundIsFinished()) {
+    Map<Player, Integer> playerPointsMap = evaluateGoals.getPlayerPointsMap();
+    playerPointsMap.forEach(Player::addPoints);
+  }
+}
+
+public void dispatch(Event event) {
+  if (subscribers.containsKey(event)) {
+    subscribers.get(event).forEach(Callback::execute);
+  }
+  if (subscribersOnce.containsKey(event)) {
+    for (Callback<?> callback : subscribersOnce.get(event)) {
+      callback.execute();
+    }
+    subscribersOnce.get(event).clear();
+  }
+}
+
+private Stack<BirdCard> getBirdCardsWithPower(Stack<BirdCard> birdCards) {
+  return birdCards.stream().filter(birdCard -> birdCard.getBirdPower() != null).collect(
+    Collectors.toCollection(Stack::new));
+}
+
+
+public class Callback<T> {
+
+  private final Consumer<T> consumer;
+
+  public Callback(Consumer<T> consumer) {
+    this.consumer = consumer;
+  }
+
+//  public void execute(T data) {
+//    consumer.accept(data);
+//  }
+
+  public <T2> void execute(T2 argument) {
+    consumer.accept((T) argument);
+  }
+
+  public void execute() {
+    consumer.accept(null);
+  }
+}
+
+
 ```
