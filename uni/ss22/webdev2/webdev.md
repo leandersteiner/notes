@@ -67,3 +67,6 @@
 - Group
   - is
   - trainer_id
+
+- Plan erstellen und Plan zurueckgeben
+- Workouts fuer bestimmten Plan
