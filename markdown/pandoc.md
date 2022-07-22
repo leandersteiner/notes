@@ -9,7 +9,6 @@ author: Leander Steiner
 date: \today
 toc: true
 monofont: "Hack Nerd Font"
-mainfont:
 fontsize: 11pt
 linestretch: 1.5
 numbersections: true
