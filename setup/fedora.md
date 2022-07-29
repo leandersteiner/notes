@@ -100,7 +100,7 @@ sudo dnf install dotnet-sdk-6.0
 ### Java
 
 ```
-sudo dnf search java-latest-openjdk-devel
+sudo dnf install java-latest-openjdk-devel
 ```
 
 ## Config
