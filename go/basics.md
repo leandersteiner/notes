@@ -94,12 +94,12 @@ const (
 
 Every uninitialized variable will be set to its types zero value.
 
-- Boolean -> false
-- Integer -> 0
-- Float -> 0
-- Complex -> 0i
-- String -> ""
-- Ponter -> nil
+- Boolean: false
+- Integer: 0
+- Float: 0
+- Complex: 0i
+- String: "" (empty string)
+- Ponter: nil
 
 ```go
 package main
