@@ -4,24 +4,15 @@ Rust is a modern programming language that is ***blazingly fast***.
 
 ## Memory
 
-Rust can guarantee at compile time that there will be no runtime errors in regard to memory management.
-This is why Rust does not need a garbage collector.
-Every value has an owner and a value lives as long as it's owner.
-The owner can change and for access, references can be borrowed.
-Borrowed references are usually read only but there can also be a read/write reference.
+Rust can guarantee at compile time that there will be no runtime errors in regard to memory management. This is why Rust does not need a garbage collector. Every value has an owner and a value lives as long as it's owner. The owner can change and for access, references can be borrowed. Borrowed references are usually read only but there can also be a read/write reference.
 
 ## OOP
 
-Rust, like Go does not support inheritance.
-It does however allow for good encapsulation of data through modules.
-Data can have mathods and polymorphism is supported through traits.
+Rust, like Go does not support inheritance. It does however allow for good encapsulation of data through modules. Data can have mathods and polymorphism is supported through traits.
 
 ## Parallelism
 
-Rust like Go allows for messaging between Threads through channels.
-It also offers all primitives like Mutexes we are accustomed to.
-The concept of ownership allows us to see problematic code early on.
-It also looks like Rust allows for different Thread-Modules to be used.
+Rust like Go allows for messaging between Threads through channels. It also offers all primitives like Mutexes we are accustomed to. The concept of ownership allows us to see problematic code early on. It also looks like Rust allows for different Thread-Modules to be used.
 
 ## Installation
 
@@ -63,14 +54,11 @@ fn main() {
 
 ## Rust build system
 
-Rust comes with an excellent build system called Cargo.
-There is no need to ever call the rust compiler ourselves.
+Rust comes with an excellent build system called Cargo. There is no need to ever call the rust compiler ourselves.
 
 ### Structure of rust projects
 
-Cargo allows us to create and manage software packages, manage dependencies, run tests and building of libraries or executables (Crates).
-One package consists of one or more crates which consist of one or more file.
-All of that resides within a workspace, which can contain multiple packages.
+Cargo allows us to create and manage software packages, manage dependencies, run tests and building of libraries or executables (Crates). One package consists of one or more crates which consist of one or more file. All of that resides within a workspace, which can contain multiple packages.
 
 ```rust
 use std::fs::File;
@@ -114,8 +102,7 @@ Cargo supports different build configurations like `dev`, `release`, `test` and 
 cargo build --release
 ```
 
-Will switch from `dev` to the `release` build config.
-We can also just confirm that our code will compile by running `cargo check`.
+Will switch from `dev` to the `release` build config. We can also just confirm that our code will compile by running `cargo check`.
 
 ```
 cargo run
@@ -203,8 +190,7 @@ Without the `-p hex` all dependencies would be updated not just a specific one.
 
 ### Workspaces
 
-Whenever our project is too big to fit into a single package we can use workspaces to better manage our project. A workspace can contain multiple packages which are built together.
-Inside the workspace there is a single `Cargo.toml` which contains the workspace definition and shared configuration options and any amount of packages. Packages inside the workspace are created the usual way with `cargo new`.
+Whenever our project is too big to fit into a single package we can use workspaces to better manage our project. A workspace can contain multiple packages which are built together. Inside the workspace there is a single `Cargo.toml` which contains the workspace definition and shared configuration options and any amount of packages. Packages inside the workspace are created the usual way with `cargo new`.
 
 A workspace with two packages `package1` and `package2` would look like this:
 
