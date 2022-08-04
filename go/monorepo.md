@@ -24,7 +24,7 @@ From what I read multi-language Monorepos are more trouble than they are worth f
         └── main.go
 ```
 
-<sup>Source 1</sup>
+[^src1]
 
 I do not think `libs` is a great name for the shared code. I would imagine in my example most of the shared code would be a small custom web framework based on any of the popular routing libraries and all files concerning inter service communication (gRPC/messaging).
 
@@ -47,19 +47,13 @@ require (
 
 replace github.com/org/repo/examples/go-monorepo/libs/hello v0.0.0 => ../../libs/hello
 ```
+[^src1]
 
-<sup>Source 1</sup>
+**Note:** I have not yet looked into go workspaces with `go.work` files enough to know if this would be another viable option for structuring monorepos. It is on my todo list and I will write about it once I did look into it.
 
-**Note:** I have not yet looked into go[^fn1] workspaces with `go.work` files enough to know if this would be another viable option for structuring monorepos. It is on my todo list and I will write about it once I did look into it.
-
-> Go recommends using single-module repositories by default, and warns that multi-module repositories require great care.
-
-<sup>Source 3</sup>
+> Go recommends using single-module repositories by default, and warns that multi-module repositories require great care.[^src2]
 
 ## Sources
 
-1. [https://earthly.dev/blog/golang-monorepo/](https://earthly.dev/blog/golang-monorepo/)
-2. [https://github.com/flowerinthenight/golang-monorepo](https://github.com/flowerinthenight/golang-monorepo)
-3. [https://medium.com/grab/go-modules-a-guide-for-monorepos-part-1-dbc5fc8217ec](https://medium.com/grab/go-modules-a-guide-for-monorepos-part-1-dbc5fc8217ec)
-
-[^fn1]: Test
+[^src1]: [https://earthly.dev/blog/golang-monorepo/](https://earthly.dev/blog/golang-monorepo/)
+[^src2]: [https://medium.com/grab/go-modules-a-guide-for-monorepos-part-1-dbc5fc8217ec](https://medium.com/grab/go-modules-a-guide-for-monorepos-part-1-dbc5fc8217ec)
