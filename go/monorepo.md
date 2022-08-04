@@ -53,7 +53,5 @@ replace github.com/org/repo/examples/go-monorepo/libs/hello v0.0.0 => ../../libs
 
 > Go recommends using single-module repositories by default, and warns that multi-module repositories require great care.[^src2]
 
-## Sources
-
 [^src1]: [https://earthly.dev/blog/golang-monorepo/](https://earthly.dev/blog/golang-monorepo/)
 [^src2]: [https://medium.com/grab/go-modules-a-guide-for-monorepos-part-1-dbc5fc8217ec](https://medium.com/grab/go-modules-a-guide-for-monorepos-part-1-dbc5fc8217ec)
