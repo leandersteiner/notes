@@ -47,3 +47,31 @@ header-includes:
 ```
 pandoc --pdf-engine xelatex  gateway.md -o gateway.pdf --highlight-style tango
 ```
+
+## Extra.tex
+
+- makes sure figures are not displayed out of flow
+
+```
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\small,breaklines,commandchars=\\\{\}}
+\usepackage{float}
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][2] {
+    \expandafter\origfigure\expandafter[H]
+} {
+    \endorigfigure
+}
+```
+
+## Generate pdfs
+
+```
+#!/bin/bash
+
+for file in *.md
+do
+  pandoc -H extra.tex --pdf-engine xelatex  "$file" -o "${file%.*}.pdf" --shift-heading-level-by=-1 --highlight-style tango
+done
+```
