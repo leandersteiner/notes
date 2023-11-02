@@ -30,17 +30,17 @@ header-includes:
 
 ## Code blocks with highlighting and line numbers
 
-    ```{.numberLines .go}
-    func validateToken(token []byte) (*jwt.Claims, error) {
-      // check if we signed the token and either
-      // return an error or the claims inside the jwt
-      claims, err := jwt.HMACCheck(token, secret)
-      if err != nil {
-        return nil, err
-      }
-      return claims, nil
-    }
-    ```
+```{.numberLines .go}
+func validateToken(token []byte) (*jwt.Claims, error) {
+  // check if we signed the token and either
+  // return an error or the claims inside the jwt
+  claims, err := jwt.HMACCheck(token, secret)
+  if err != nil {
+    return nil, err
+  }
+  return claims, nil
+}
+```
 
 ## Command
 
