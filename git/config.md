@@ -46,7 +46,7 @@ git push -u origin main
 ```
 [user]
   name = "Leander Steiner"
-  "leander.steiner@work.de"
+  email = "leander.steiner@work.de"
 ```
 
 /repos/uni/.gitconfig
