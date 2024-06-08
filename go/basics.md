@@ -1,3 +1,9 @@
+---
+id: basics
+aliases: []
+tags: []
+---
+
 # Go - Basics
 
 ## Hello World
@@ -8,7 +14,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello World")
+ fmt.Println("Hello World")
 }
 ```
 
@@ -39,20 +45,20 @@ package main
 import "fmt"
 
 func main() {
-	var a int // declaration
-	var b = 5 // initialization
-	c := 10 // short form only possible with initialization
-	const d = 20 // constant
+ var a int // declaration
+ var b = 5 // initialization
+ c := 10 // short form only possible with initialization
+ const d = 20 // constant
 
-	fmt.Println(a, b, c, d)
-	//d = 5 -> cannot assign to d (declared const)
+ fmt.Println(a, b, c, d)
+ //d = 5 -> cannot assign to d (declared const)
 
-	// Grouping variables - Effective Go
-	var (
-		home   = os.Getenv("HOME")
-		user   = os.Getenv("USER")
-		gopath = os.Getenv("GOPATH")
-	)
+ // Grouping variables - Effective Go
+ var (
+  home   = os.Getenv("HOME")
+  user   = os.Getenv("USER")
+  gopath = os.Getenv("GOPATH")
+ )
 }
 ```
 
@@ -66,25 +72,25 @@ Output:
 
 ```go
 const (
-	Nort = iota // 0
-	East        // 1 iota can be omitted for the following declarations
-	South       // 2
-	West        // 3
+ Nort = iota // 0
+ East        // 1 iota can be omitted for the following declarations
+ South       // 2
+ West        // 3
 )
 
 // Example from Effective Go
 type ByteSize float64
 
 const (
-		_           = iota // ignore first value by assigning to blank identifier
-		KB ByteSize = 1 << (10 * iota)
-		MB
-		GB
-		TB
-		PB
-		EB
-		ZB
-		YB
+  _           = iota // ignore first value by assigning to blank identifier
+  KB ByteSize = 1 << (10 * iota)
+  MB
+  GB
+  TB
+  PB
+  EB
+  ZB
+  YB
 )
 ```
 
@@ -107,19 +113,19 @@ package main
 import "fmt"
 
 func main() {
-	var b bool
-	var i int
-	var f float32
-	var c complex64
-	var s string
-	var p *int
+ var b bool
+ var i int
+ var f float32
+ var c complex64
+ var s string
+ var p *int
 
-	fmt.Printf("b: %T(%v)\n", b, b)
-	fmt.Printf("i: %T(%v)\n", i, i)
-	fmt.Printf("f: %T(%v)\n", f, f)
-	fmt.Printf("c: %T(%v)\n", c, c)
-	fmt.Printf("s: %T(%v)\n", s, s)
-	fmt.Printf("p: %T(%v)\n", p, p)
+ fmt.Printf("b: %T(%v)\n", b, b)
+ fmt.Printf("i: %T(%v)\n", i, i)
+ fmt.Printf("f: %T(%v)\n", f, f)
+ fmt.Printf("c: %T(%v)\n", c, c)
+ fmt.Printf("s: %T(%v)\n", s, s)
+ fmt.Printf("p: %T(%v)\n", p, p)
 }
 ```
 
@@ -142,14 +148,14 @@ p: *int(<nil>)
 package main
 
 import (
-	"fmt"
-	"os"
+ "fmt"
+ "os"
 )
 
 func main() {
-	args := os.Args[1:] // Slicing the returned slice starting at index 1
-	fmt.Println(os.Args)
-	fmt.Println(args)
+ args := os.Args[1:] // Slicing the returned slice starting at index 1
+ fmt.Println(os.Args)
+ fmt.Println(args)
 }
 
 ```
@@ -177,27 +183,27 @@ We can use the from c adapted `strconv.Atoi` and `strconv.Itoa` functions to con
 package main
 
 import (
-	"fmt"
-	"os"
-	"strconv"
+ "fmt"
+ "os"
+ "strconv"
 )
 
 func main() {
-	arg1 := os.Args[1]
-	arg2 := os.Args[2]
+ arg1 := os.Args[1]
+ arg2 := os.Args[2]
 
-	num1, err := strconv.Atoi(arg1)
-	if err != nil {
-		panic(err)
-	}
-	num2, err := strconv.Atoi(arg2)
-	if err != nil {
-		panic(err)
-	}
+ num1, err := strconv.Atoi(arg1)
+ if err != nil {
+  panic(err)
+ }
+ num2, err := strconv.Atoi(arg2)
+ if err != nil {
+  panic(err)
+ }
 
-	fmt.Println(arg1, arg2, num1, num2)
-	fmt.Println(num1 + num2)
-	fmt.Println(arg1 + arg2)
+ fmt.Println(arg1, arg2, num1, num2)
+ fmt.Println(num1 + num2)
+ fmt.Println(arg1 + arg2)
 }
 ```
 
@@ -219,12 +225,12 @@ Functions are declared using the `func` keyword followed by the function name wi
 
 ```go
 func findUser(users []user, name string) (user, error) {
-	for _, u := range users {
-		if u.name == name {
-			return u, nil
-		}
-		return user{}, ErrUserNotFound
-	}
+ for _, u := range users {
+  if u.name == name {
+   return u, nil
+  }
+  return user{}, ErrUserNotFound
+ }
 }
 ```
 
@@ -234,13 +240,13 @@ By prefixing a parameter with `...` we can make a parameter variadic. Inside the
 
 ```go
 func wrapMiddleware(handler Handler, mw ...Middleware) Handler {
-	for i := len(mw) - 1; i >= 0; i-- {
-		h := mw[i]
-		if h != nil {
-			handler = h(handler)
-		}
-	}
-	return handler
+ for i := len(mw) - 1; i >= 0; i-- {
+  h := mw[i]
+  if h != nil {
+   handler = h(handler)
+  }
+ }
+ return handler
 }
 ```
 

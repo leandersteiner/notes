@@ -1,11 +1,13 @@
 ---
-title: HTTP Clients in Go
-date: 2022-02-12T21:00:21.934+01:00
+id: http-clients
+aliases: []
+tags:
+  - http
+  - go
+  - net/http
 category: go
-tags: 
-- http
-- go
-- net/http
+date: 2022-02-12T21:00:21.934+01:00
+title: HTTP Clients in Go
 ---
 
 # net/http - Clients
@@ -79,10 +81,10 @@ We can now create a new struct that will hold the response data. To achieve this
 
 ```go
 var data struct {
-	UserID    int    `json:"userId"`
-	ID        int    `json:"id"`
-	Title     string `json:"title"`
-	Completed bool   `json:"completed"`
+ UserID    int    `json:"userId"`
+ ID        int    `json:"id"`
+ Title     string `json:"title"`
+ Completed bool   `json:"completed"`
 }
 ```
 
@@ -110,46 +112,47 @@ Output:
 package main
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"net/http"
-	"time"
+ "context"
+ "encoding/json"
+ "fmt"
+ "net/http"
+ "time"
 )
 
 func main() {
-	client := &http.Client{
-		Timeout: 5 * time.Second,
-	}
+ client := &http.Client{
+  Timeout: 5 * time.Second,
+ }
 
-	const url = "https://jsonplaceholder.typicode.com/todos/1"
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
-	if err != nil {
-		panic(err)
-	}
+ const url = "https://jsonplaceholder.typicode.com/todos/1"
+ req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
+ if err != nil {
+  panic(err)
+ }
 
-	res, err := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-	defer res.Body.Close()
+ res, err := client.Do(req)
+ if err != nil {
+  panic(err)
+ }
+ defer res.Body.Close()
 
-	if res.StatusCode != http.StatusOK {
-		panic("unexpected status")
-	}
+ if res.StatusCode != http.StatusOK {
+  panic("unexpected status")
+ }
 
-	var data struct {
-		UserID    int    `json:"userId"`
-		ID        int    `json:"id"`
-		Title     string `json:"title"`
-		Completed bool   `json:"completed"`
-	}
+ var data struct {
+  UserID    int    `json:"userId"`
+  ID        int    `json:"id"`
+  Title     string `json:"title"`
+  Completed bool   `json:"completed"`
+ }
 
-	err = json.NewDecoder(res.Body).Decode(&data)
-	if err != nil {
-		panic(err)
-	}
+ err = json.NewDecoder(res.Body).Decode(&data)
+ if err != nil {
+  panic(err)
+ }
 
-	fmt.Printf("%+v\n", data)
+ fmt.Printf("%+v\n", data)
 }
 ```
+

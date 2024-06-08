@@ -1,3 +1,9 @@
+---
+id: chi-router
+aliases: []
+tags: []
+---
+
 # Using go-chi
 
 ## Installation
@@ -8,7 +14,7 @@ go get -u github.com/go-chi/chi/v5
 
 ```go
 import (
-	"github.com/go-chi/chi/v5"
+ "github.com/go-chi/chi/v5"
 )
 ```
 
@@ -32,20 +38,20 @@ Trace(pattern string, h http.HandlerFunc)
 package main
 
 import (
-	"github.com/go-chi/chi/v5"
-	"net/http"
+ "github.com/go-chi/chi/v5"
+ "net/http"
 )
 
 func main() {
-	r := chi.NewRouter()
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome"))
-	})
-	r.Post("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome POST"))
-	})
+ r := chi.NewRouter()
+ r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+  w.Write([]byte("Welcome"))
+ })
+ r.Post("/", func(w http.ResponseWriter, r *http.Request) {
+  w.Write([]byte("Welcome POST"))
+ })
 
-	http.ListenAndServe(":8080", r)
+ http.ListenAndServe(":8080", r)
 }
 ```
 
@@ -55,8 +61,8 @@ Here we create a new `chi.Mux` instance and register two routes providing a patt
 
 ```go
 r.Get("/{id}", func(w http.ResponseWriter, r *http.Request) {
-	idParam := chi.URLParam(r, "id")
-	w.Write([]byte("Welcome " + idParam))
+ idParam := chi.URLParam(r, "id")
+ w.Write([]byte("Welcome " + idParam))
 })
 ```
 
@@ -70,40 +76,40 @@ When designing Restful APIs we need to provide many different HTTP-Methods for t
 package main
 
 import (
-	"github.com/go-chi/chi/v5"
-	"net/http"
+ "github.com/go-chi/chi/v5"
+ "net/http"
 )
 
 func placeholderHandler(w http.ResponseWriter, _ *http.Request) {
-	w.Write([]byte("Placeholder"))
+ w.Write([]byte("Placeholder"))
 }
 
 func main() {
-	r := chi.NewRouter()
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome"))
-	})
+ r := chi.NewRouter()
+ r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+  w.Write([]byte("Welcome"))
+ })
 
-	userRouter := chi.NewRouter()
-	userRouter.Get("/", placeholderHandler)
-	userRouter.Get("/{id}", placeholderHandler)
-	userRouter.Post("/", placeholderHandler)
-	userRouter.Patch("/{id}", placeholderHandler)
-	userRouter.Put("/{id}", placeholderHandler)
-	userRouter.Delete("/{id}", placeholderHandler)
+ userRouter := chi.NewRouter()
+ userRouter.Get("/", placeholderHandler)
+ userRouter.Get("/{id}", placeholderHandler)
+ userRouter.Post("/", placeholderHandler)
+ userRouter.Patch("/{id}", placeholderHandler)
+ userRouter.Put("/{id}", placeholderHandler)
+ userRouter.Delete("/{id}", placeholderHandler)
 
-	postRouter := chi.NewRouter()
-	postRouter.Get("/", placeholderHandler)
-	postRouter.Get("/{id}", placeholderHandler)
-	postRouter.Post("/", placeholderHandler)
-	postRouter.Patch("/{id}", placeholderHandler)
-	postRouter.Put("/{id}", placeholderHandler)
-	postRouter.Delete("/{id}", placeholderHandler)
+ postRouter := chi.NewRouter()
+ postRouter.Get("/", placeholderHandler)
+ postRouter.Get("/{id}", placeholderHandler)
+ postRouter.Post("/", placeholderHandler)
+ postRouter.Patch("/{id}", placeholderHandler)
+ postRouter.Put("/{id}", placeholderHandler)
+ postRouter.Delete("/{id}", placeholderHandler)
 
-	r.Mount("/users", userRouter)
-	r.Mount("/posts", userRouter)
+ r.Mount("/users", userRouter)
+ r.Mount("/posts", userRouter)
 
-	http.ListenAndServe(":8080", r)
+ http.ListenAndServe(":8080", r)
 }
 ```
 
@@ -115,28 +121,28 @@ We can create multiple routers and just mount them to our application router pro
 package main
 
 import (
-	"fmt"
-	"github.com/go-chi/chi/v5"
-	"net/http"
-	"time"
+ "fmt"
+ "github.com/go-chi/chi/v5"
+ "net/http"
+ "time"
 )
 
 func TimerMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		start := time.Now()
-		next.ServeHTTP(w, r)
-		elapsed := time.Since(start)
-		fmt.Println(elapsed)
-	})
+ return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+  start := time.Now()
+  next.ServeHTTP(w, r)
+  elapsed := time.Since(start)
+  fmt.Println(elapsed)
+ })
 }
 
 func main() {
-	r := chi.NewRouter()
-	r.Use(TimerMiddleware)
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome"))
-	})
-	http.ListenAndServe(":8080", r)
+ r := chi.NewRouter()
+ r.Use(TimerMiddleware)
+ r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+  w.Write([]byte("Welcome"))
+ })
+ http.ListenAndServe(":8080", r)
 }
 
 ```
