@@ -1,3 +1,8 @@
+---
+id: config
+aliases: []
+tags: []
+---
 # Basic Git usage
 
 ## Getting ready
@@ -29,6 +34,7 @@ git push -u origin main
 ## Specific configs
 
 ~/.gitconfig
+
 ```
 [user]
   name = Leander Steiner
@@ -56,3 +62,10 @@ git push -u origin main
   name = "Leander Steiner"
   email = "leander.steiner@uni.de"
 ```
+
+## Global .gitignore
+
+- create a file called `.gitignore` in your home directory
+- tell git where the file is
+`git config --global core.excludesfile ~/.gitignore`
+
