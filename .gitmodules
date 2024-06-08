@@ -1,0 +1,3 @@
+[submodule "private-notes"]
+	path = private-notes
+	url = git@github.com:leandersteiner/private-notes.git
