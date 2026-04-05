@@ -188,4 +188,4 @@ Workloads:
 
 ### Deployments
 
-![](img/container-in-pod-managed-by-deployment.png)
+![img](img/container-in-pod-managed-by-deployment.png)

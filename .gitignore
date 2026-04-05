@@ -8,3 +8,4 @@
 *.class
 target
 .obsidian
+.DS_Store

@@ -21,11 +21,11 @@ Instead of using the default server with `http.HandleFunc(string, func(http.Resp
 
 ```go
 s := http.Server{
-	Addr:         ":8080",
-	ReadTimeout:  5 * time.Second,
-	WriteTimeout: 15 * time.Second,
-	IdleTimeout:  30 * time.Second,
-	Handler:      nil, // handler to invoke, http.DefaultServeMux if nil
+ Addr:         ":8080",
+ ReadTimeout:  5 * time.Second,
+ WriteTimeout: 15 * time.Second,
+ IdleTimeout:  30 * time.Second,
+ Handler:      nil, // handler to invoke, http.DefaultServeMux if nil
 }
 ```
 
@@ -37,7 +37,7 @@ Now that we have a Server, we want it to respond to incoming HTTP requests. We a
 
 ```go
 type Handler interface {
-	ServeHTTP(http.ResponseWriter, *http.Request)
+ ServeHTTP(http.ResponseWriter, *http.Request)
 }
 ```
 
@@ -57,36 +57,36 @@ Now that we have a handler we can set it as the default handler for our server s
 package main
 
 import (
-	"net/http"
-	"time"
+ "net/http"
+ "time"
 )
 
 type HealthHandler struct{}
 
 func (hh HealthHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Server OK\n"))
+ w.Write([]byte("Server OK\n"))
 }
 
 func main() {
-	mux := http.NewServeMux()
-	mux.Handle("/health", HealthHandler{})
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome to the Website\n"))
-	})
+ mux := http.NewServeMux()
+ mux.Handle("/health", HealthHandler{})
+ mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+  w.Write([]byte("Welcome to the Website\n"))
+ })
 
   s := http.Server{
-	  Addr:         ":8080",
-	  ReadTimeout:  5 * time.Second,
-	  WriteTimeout: 15 * time.Second,
-	  IdleTimeout:  30 * time.Second,
-	  Handler:      mux,
+   Addr:         ":8080",
+   ReadTimeout:  5 * time.Second,
+   WriteTimeout: 15 * time.Second,
+   IdleTimeout:  30 * time.Second,
+   Handler:      mux,
   }
 
   err := s.ListenAndServe()
   if err != nil {
-	  if err != http.ErrServerClosed {
-		  panic(err)
-	  }
+   if err != http.ErrServerClosed {
+    panic(err)
+   }
   }
 
 }
@@ -121,36 +121,36 @@ The first one expects an `http.Handler` the second allows us to pass a function 
 package main
 
 import (
-	"net/http"
-	"time"
+ "net/http"
+ "time"
 )
 
 type HealthHandler struct{}
 
 func (hh HealthHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Server OK\n"))
+ w.Write([]byte("Server OK\n"))
 }
 
 func main() {
-	mux := http.NewServeMux()
-	mux.Handle("/health", HealthHandler{})
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome to the Website\n"))
-	})
+ mux := http.NewServeMux()
+ mux.Handle("/health", HealthHandler{})
+ mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+  w.Write([]byte("Welcome to the Website\n"))
+ })
 
-	s := http.Server{
-		Addr:         ":8080",
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 15 * time.Second,
-		IdleTimeout:  30 * time.Second,
-		Handler:      mux,
-	}
-	err := s.ListenAndServe()
-	if err != nil {
-		if err != http.ErrServerClosed {
-			panic(err)
-		}
-	}
+ s := http.Server{
+  Addr:         ":8080",
+  ReadTimeout:  5 * time.Second,
+  WriteTimeout: 15 * time.Second,
+  IdleTimeout:  30 * time.Second,
+  Handler:      mux,
+ }
+ err := s.ListenAndServe()
+ if err != nil {
+  if err != http.ErrServerClosed {
+   panic(err)
+  }
+ }
 }
 ```
 
