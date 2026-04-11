@@ -158,3 +158,91 @@ We'll look at more advanced concepts in the following modules. For now, consider
 A *consumer group* is a concept intended to deal with these issues and decide which subscribers should receive which messages.
 
 Redis remembers the last message delivered to each group. If a subscriber restarts, it will receive the messages sent during the time it was down (unless there were other subscribers in the same group that already processed them).
+
+## Component tests
+
+### Red Flag: Hardcoded Test IDs
+
+If you see this in your tests, you're asking for trouble:
+
+```
+const TestUserID = "9bb1d1f7-7886-48f0-b665-21e3ad973508"
+```
+
+**Each test should create its own entities.** This solves 90% of isolation issues.
+
+### Use Helper Functions
+
+Create helpers that generate unique entities:
+
+```
+country := testutils.GenerateRandomCountry()
+
+restaurant1 := onboardRestaurant(ctx, t, country)
+restaurant2 := onboardRestaurant(ctx, t, country)
+
+customerUUID := registerCustomer(ctx, t, country)
+```
+
+Each test operates in its own "world" with unique entities. Two tests creating their own customers will never conflict, even running in parallel against the same database.
+
+### Skip the Cleanup Logic
+
+Some teams use post-test cleanups that wipe data after each run. **Don't do this.**
+
+* It's slow: wiping and recreating data adds overhead
+* It's fragile: cleanup logic can fail or miss edge cases
+* It's dangerous: someone *will* eventually run tests with prod credentials
+
+If your tests are properly isolated, you never need cleanup. Tests can run repeatedly against the same database and still pass.
+
+### Quick Isolation Check
+
+Run your tests twice without wiping the database. If they pass the first time but fail the second, you have a shared state problem.
+
+```go
+func TestComponent(t *testing.T) {
+    redisClient := message.NewRedisClient(os.Getenv("REDIS_ADDR"))
+    defer redisClient.Close()
+
+    ctx, cancel := context.WithCancel(context.Background())
+    defer cancel()
+
+    spreadsheetsAPI := &adapters.SpreadsheetsAPIStub{}
+    receiptsService := &adapters.ReceiptsServiceStub{}
+
+    go func() {
+        svc := service.New(
+            redisClient,
+            spreadsheetsAPI,
+            receiptsService,
+        )
+        err := svc.Run(ctx)
+        assert.NoError(t, err)
+    }()
+
+    waitForHttpServer(t)
+}
+
+
+func waitForHttpServer(t *testing.T) {
+    t.Helper()
+
+    require.EventuallyWithT(
+        t,
+        func(t *assert.CollectT) {
+            resp, err := http.Get("http://localhost:8080/health")
+            if !assert.NoError(t, err) {
+                return
+            }
+            defer resp.Body.Close()
+
+            if assert.Less(t, resp.StatusCode, 300, "API not ready, http status: %d", resp.StatusCode) {
+                return
+            }
+        },
+        time.Second*10,
+        time.Millisecond*50,
+    )
+}
+```
